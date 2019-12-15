@@ -1,0 +1,349 @@
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+	<title>熊孩子强的相册</title>
+	<style>
+		.div_top{
+			width:100%;
+			height:56px;
+			background-color:#F5F5F5;
+		}
+
+		.div_title{
+			width:100%;
+			height:100px;
+			background-color:#555;
+			margin-top:10px;
+		}
+
+		.div_body{
+			width:100%;
+			/* height:1000px; */
+			height:95%;
+			background-color:#F5F5F5;
+			margin-top:10px;
+		}
+
+		.modal-body{
+			align-items:center; 
+			justify-content:center;
+		}
+
+		.div_menu{
+			width:20%;
+			height:56px;
+			float:left;
+			font-size:14px;
+			color:#fff;
+			text-align:center;
+			line-height:56px;
+ 
+		}
+		.color-menu1{
+			background-color:#999;
+		}
+		.color-menu2{
+			background-color:#666;
+		}
+		.color-menu3{
+			background-color:#999;
+		}
+		.color-menu4{
+			background-color:#666;
+		}
+
+		.div_headimage{
+			height:100px;
+			width:100px;
+			margin-left:5%;
+            float:left;
+		}
+        .div_headtxt{
+			height:40px;
+			width:100%;
+			margin-left:10px;
+            float:left;
+            margin-top:100px;
+            color:#fff;
+			
+		}
+        .div_headtxt2{
+			height:40px;
+			width:100%;
+			margin-left:10px;
+            float:left;
+            margin-top:50px;
+            color:#fff;
+			
+		}
+
+        .div_bodyimage{
+			width:210px;
+			height:290px;
+			margin-left:4%;
+			/* margin-right:10px; */
+            float:left;
+			/* background-color:#bbb; */
+			margin-top:25px;
+		}
+
+		.div_bodyimage img{
+			max-width: 220px;
+			/* width:auto; */
+			max-height:98%;
+		}
+
+		.modal-lg {
+    	  max-width: 90%;
+    	}
+
+		/*
+		.div_bodyimage{
+			width:500px;
+			height:400px;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+						/*为了效果明显，可以将如下边框打开，看一下效果*/
+						/* border:1px solid black; */
+		/*
+		}
+		*/
+
+	</style>
+</head>
+
+<body>
+	<div class="div_top" >
+		<div class="div_menu color-menu1" style="margin-left:10%">熊孩子强的相册</div>
+		<div class="div_menu color-menu2" >版本 0.1.2</div>
+		<!-- <div class="div_menu color-menu3" >面孔墙</div>
+		<div class="div_menu color-menu4" >视频</div> -->
+	</div>
+
+	<!--
+	<div class="div_title" >
+		<div class="div_headimage" ><img height=100 width=100 src="images/logo.jpg"  /></div>
+		<div class="div_headtxt" >手机相册<sub>9张/所有人可见</sup></div>
+        <div class="div_headtxt2" >上传照片/视频</div>
+	</div>
+	-->
+	<div class="div_body" id="img_body">
+		<!--
+        <div class="div_bodyimage" style="margin-left:10%" ><img height=315 width=220 src="images/logo.jpg" data-toggle="modal" data-target="#myModal" /></div>
+        <div class="div_bodyimage" ><img height=315 width=220 src="images/logo.jpg"  /></div>
+        <div class="div_bodyimage" ><img height=315 width=220 src="images/logo.jpg"  /></div>
+        <div class="div_bodyimage" ><img height=315 width=220 src="images/logo.jpg"  /></div>
+        <div class="div_bodyimage" style="margin-left:10%" ><img height=315 width=220 src="images/logo.jpg"  /></div>
+        <div class="div_bodyimage" ><img height=315 width=220 src="images/logo.jpg"  /></div>
+        <div class="div_bodyimage" ><img height=315 width=220 src="images/logo.jpg"  /></div>
+        <div class="div_bodyimage" ><img height=315 width=220 src="images/logo.jpg"  /></div>
+		-->
+    </div>
+
+    <!-- 按钮：用于打开模态框 -->
+    <!--
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    打开模态框
+    </button>
+    -->
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title" id="title">模态框头部</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- 模态框主体 -->
+      <div class="modal-body" id="modal_body">
+		<div id="modal_body_img">
+			<div id="modal_img">
+				<!-- <img height=315 width=220 src="images/logo.jpg"  />  -->
+			</div>
+		</div>
+		<div id="img_loading">
+			<a id="img_loading_a" hidden="hidden" href="javascript:void(0);" onclick="modal_load_img()">点击加载更多</a>
+		</div>
+      </div>
+
+      <!-- 模态框底部 -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+
+        </div>
+      </div>
+    </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/flyio/dist/fly.min.js"></script>
+
+<script type="text/javascript">
+var width = document.body.clientWidth;
+var height = document.body.clientHeight;
+var page_size = (width / 250).toFixed() * (height / 300).toFixed(); // 20;
+console.log("page_size", (width / 250).toFixed(), (height / 300).toFixed(), page_size);
+
+var modal_page_size = 5;
+
+// window.alert((width / 250).toFixed() + "," + (height / 300).toFixed() + "," + page_size)
+var photo_list = [];
+var modal_counter = 0;
+
+function show_modal(id) {
+	console.log("show_modal", id);
+	$("#title").text(id);
+	$('#myModal').modal('show');
+	$("#modal_body_img").empty();
+
+	fly.get(
+		"/photo/" + id
+	).then(
+		function (response) {
+			photo_list = response.data.img;
+			if (photo_list.length > modal_page_size) {
+				$("#img_loading_a").removeAttr("hidden");
+			}
+			else {
+				 $("#img_loading_a").attr("hidden", "hidden");
+			}
+			inner_modal_img_html(photo_list.slice(0, modal_page_size));
+			modal_counter = 0;
+		}
+	).catch(
+		function (error) {
+			console.log(error);
+		}
+	)
+}
+
+function modal_load_img() {
+	modal_counter += 1;
+	inner_modal_img_html(photo_list.slice(modal_counter * modal_page_size, (modal_counter + 1) * modal_page_size));
+	if ((modal_counter + 1) * modal_page_size >= photo_list.length) {
+		$("#img_loading_a").attr("hidden", "hidden");
+	}
+}
+
+
+function inner_modal_img_html(photo_list) {
+	for (let i=0; i < photo_list.length; i++) {
+		$("#modal_body_img").append('<div class="modal_bodyimage" > <img width=100% src="'
+			+ photo_list[i] + '"' + ' /> </div>');
+		$("#modal_body_img").append('<br>');
+	}
+}
+
+$(window).resize(function () {
+	resize();
+})
+function resize() {
+	console.log("resize");
+	$(".div_bodyimage").attr("style", "margin-left:4%");
+}
+
+var photo_album_list = [];
+var counter = 0;
+
+function start() {
+	fly.get(
+	    "/photos"
+	).then(
+	    function (response) {
+	        // console.log(response.data);
+			photo_album_list = response.data;
+			// console.log("photo_album_list ===>", photo_album_list);
+			inner_img_html(photo_album_list.slice(0, page_size));
+			counter = 1;
+		}
+	).catch(
+	    function (error) {
+	        console.log(error);
+	    }
+	);
+}
+
+
+function scroll(photo_album_list) {
+	if (photo_album_list.length === 0) {
+		return
+	}
+
+	if ((counter *  page_size) > photo_album_list.length) {
+		return
+	}
+
+	let distance = $(window).scrollTop(); //这个方法是当前滚动条滚动的距离
+    let win_height = $(window).height(); //获取当前窗体的高度
+    let doc_height = $(document).height(); //获取当前文档的高度
+    let bot = 50; //bot是底部距离的高度
+
+	if (bot + distance >= doc_height - win_height) {
+		console.log("list", photo_album_list.slice(counter * page_size, (counter + 1) *  page_size));
+		inner_img_html(photo_album_list.slice((counter * page_size), (counter + 1) *  page_size));
+		counter += 1;
+	}
+}
+
+
+function inner_img_html(photo_album_list) {
+	var width = document.body.clientWidth;
+	console.log("inner_img_html", width, photo_album_list);
+	var horizontal = (width / 250).toFixed();
+	for (let i = 0; i < photo_album_list.length; i++) {
+		let url = photo_album_list[i].path;
+		let id = photo_album_list[i].id; // url.split("/")[url.split("/").length - 1];
+		let title_img = photo_album_list[i].title_img;
+		if (i % horizontal == 0) {
+			$("#img_body").append(
+				'<div class="div_bodyimage" style="margin-left:4%" >'
+					+ '<img src="' + url + "/" + title_img + '" onclick="show_modal(' + "'" + id + "'" + ');" />'
+					+ '<div>'
+						+ '<a href="javascript:void(0);" onclick="show_modal(' + "'" + id + "'" + ')">' + id + '</a>'
+					+ '</div>'
+				+ '</div>'
+			);
+		}
+		else {
+			$("#img_body").append(
+				'<div class="div_bodyimage" >'
+					+ '<img src="' + url + "/" + title_img + '" onclick="show_modal(' + "'" + id + "'" + ');" />'
+					+ '<div>'
+						+ '<a href="javascript:void(0);" onclick="show_modal(' + "'" + id + "'" + ')">' + id + '</a>'
+					+ '</div>'
+				+ '</div>'
+			);
+		}
+	}
+}
+
+
+function run() {
+	start();
+	$(document).ready(
+		function() {
+			console.log("ready");
+			$(window).scroll(
+				function() {
+					console.log("scroll");
+					scroll(photo_album_list);
+				}
+			);
+		}
+	);
+}
+
+run();
+
+</script>
+</html>

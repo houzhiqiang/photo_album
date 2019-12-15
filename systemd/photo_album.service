@@ -1,0 +1,20 @@
+[Unit]
+Description=my blog startup script
+After=syslog.target
+After=mysqld.target
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/home/ixhzq/web/photo_album/venv/bin/python3 /home/ixhzq/web/photo_album/venv/bin/gunicorn -c /home/ixhzq/web/photo_album/photo_album.gunicorn.conf.py photo:app
+
+Restart=on-failure
+
+LimitNOFILE=1048576
+LimitNPROC=512
+
+User=ixhzq
+Group=ixhzq
+
+[Install]
+WantedBy=multi-user.target
