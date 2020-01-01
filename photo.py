@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 #coding=utf-8
-
-import os
-import glob
 from functools import wraps
 from pathlib import Path
 
@@ -97,17 +94,21 @@ def img_up():
 @basic_auth_required
 @cache.cached(timeout=1800, key_prefix='view_%s', unless=None)
 def photos():
-    paths = ['/'.join(p.split('/')[-3:]) for p in sorted(glob.glob(f"{FILE_PATH}/*"))]
+    paths = ['/'.join(str(p).split('/')[-3:]) for p in sorted(FILE_PATH.glob("*"))]
     data = []
     for path in paths:
+        imgs = search_file(
+            BASE_PATH.joinpath(path),
+            file_types=['[jJ][pP][gG]', '[pP][nN][gG]', 'mp4', 'MP4', 'MOV', 'mov'],
+        )
+        # 过滤空目录
+        if not imgs:
+            continue
         data.append(
             {
                 "path": path,
                 "id": path.split("/")[-1],
-                "title_img": search_file(
-                    BASE_PATH.joinpath(path),
-                    file_types=['[jJ][pP][gG]', '[pP][nN][gG]', 'mp4', 'MP4', 'MOV', 'mov']
-                )[0].split("/")[-1] if not os.path.exists(f"{path}/001.jpg") else "001.jpg",
+                "title_img": imgs[0].split("/")[-1] if not BASE_PATH.joinpath(path, "001.jpg").exists() else "001.jpg",
             }
         )
     return jsonify(data)
@@ -120,7 +121,7 @@ def photo(id):
     return jsonify(
         {
             'img': search_file(
-                f"{FILE_PATH}/{id}",
+                FILE_PATH.joinpath(id),
                 file_types=['[jJ][pP][gG]', '[pP][nN][gG]', 'mp4', 'MP4', 'MOV', 'mov']
             )
         }
@@ -130,9 +131,9 @@ def photo(id):
 def search_file(path, file_types=('[jJ][pP][gG]', '[pP][nN][gG]')):
     result = []
     for file_type in file_types:
-        result.extend(glob.glob(str(path) + r'/*.' + file_type))
+        result.extend(path.glob(f"*.{file_type}"))
 
-    return sorted(['/'.join(r.split('/')[-4:]) for r in result])
+    return sorted(['/'.join(str(r).split('/')[-4:]) for r in result])
 
 
 #gunicorn photo:app --workers=5 -k gevent --bind=127.0.0.1:5000
