@@ -17,5 +17,5 @@ class Config:
     WORKERS = multiprocessing.cpu_count() * 2 + 1
     LOGLEVEL = 'info'
     ACCESS_LOG_FORMAT = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" "%({X-Real-IP}i)s"'
-    ACCESSLOG = "/home/ixhzq/web/photo_album/log/gunicorn/access.log"
-    ERRORLOG = "/home/ixhzq/web/photo_album/log/gunicorn/error.log"
+    ACCESSLOG = BASE_PATH.joinpath("log/gunicorn/access.log")
+    ERRORLOG = BASE_PATH.joinpath("log/gunicorn/error.log")
