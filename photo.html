@@ -207,7 +207,7 @@ function show_modal(id) {
 	$("#modal_body_img").empty();
 
 	fly.get(
-		"/photo/" + id
+		`/photo/${id}`,
 	).then(
 		function (response) {
 			photo_list = response.data.img;
@@ -238,8 +238,9 @@ function modal_load_img() {
 
 function inner_modal_img_html(photo_list) {
 	for (let i=0; i < photo_list.length; i++) {
-		$("#modal_body_img").append('<div class="modal_bodyimage" > <img width=100% src="'
-			+ photo_list[i] + '"' + ' /> </div>');
+		$("#modal_body_img").append(
+			`<div class="modal_bodyimage" > <img width=100% src="${photo_list[i]}"/> </div>`
+		);
 		$("#modal_body_img").append('<br>');
 	}
 }
@@ -295,7 +296,7 @@ function scroll(photo_album_list) {
 	}
 }
 
-
+// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings
 function inner_img_html(photo_album_list) {
 	var width = document.body.clientWidth;
 	console.log("inner_img_html", width, photo_album_list);
@@ -306,22 +307,22 @@ function inner_img_html(photo_album_list) {
 		let title_img = photo_album_list[i].title_img;
 		if (i % horizontal == 0) {
 			$("#img_body").append(
-				'<div class="div_bodyimage" style="margin-left:4%" >'
-					+ '<img src="' + url + "/" + title_img + '" onclick="show_modal(' + "'" + id + "'" + ');" />'
-					+ '<div>'
-						+ '<a href="javascript:void(0);" onclick="show_modal(' + "'" + id + "'" + ')">' + id + '</a>'
-					+ '</div>'
-				+ '</div>'
+				`<div class="div_bodyimage" style="margin-left:4%" >
+					<img src="${url}/${title_img}" onclick="show_modal('${id}');" />
+					<div>
+						<a href="javascript:void(0);" onclick="show_modal('${id}')">${id}</a>
+					</div>
+				</div>`
 			);
 		}
 		else {
 			$("#img_body").append(
-				'<div class="div_bodyimage" >'
-					+ '<img src="' + url + "/" + title_img + '" onclick="show_modal(' + "'" + id + "'" + ');" />'
-					+ '<div>'
-						+ '<a href="javascript:void(0);" onclick="show_modal(' + "'" + id + "'" + ')">' + id + '</a>'
-					+ '</div>'
-				+ '</div>'
+				`<div class="div_bodyimage" >
+					<img src="${url}/${title_img}" onclick="show_modal('${id}');" />
+					<div>
+						<a href="javascript:void(0);" onclick="show_modal('${id}')">${id}</a>
+					</div>
+				</div>`
 			);
 		}
 	}
